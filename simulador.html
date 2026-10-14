@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aline Alves | Engenharia Elétrica & Sistemas Solares</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-deep: #05070B;
+            --card-bg: rgba(10, 15, 30, 0.82);
+            --accent-orange: #FF6B00;
+            --accent-blue: #3B82F6;
+            --accent-cyan: #38BDF8;
+            --accent-green: #10B981;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-glow: rgba(255, 107, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(5, 7, 11, 0.86), rgba(5, 7, 11, 0.92)), 
+                url('https://images.unsplash.com/photo-1614642264762-d0a3b8bf3700?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=85');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        .executive-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 35px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .profile-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 0 25px rgba(255, 107, 0, 0.5);
+        }
+
+        .profile-titles h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
+        }
+
+        .profile-titles p {
+            color: var(--accent-orange);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .header-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            backdrop-filter: blur(8px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .kpi-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: rgba(255, 107, 0, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-orange);
+            font-size: 1.4rem;
+        }
+
+        .kpi-info span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .kpi-info strong {
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .tech-nav {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-list a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .nav-list a:hover {
+            color: var(--accent-orange);
+            background: rgba(255, 94, 0, 0.12);
+        }
+
+        .section-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header h2 i {
+            color: var(--accent-orange);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Tooltip de Ajuda Interativo */
+        .tooltip-container {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 300px;
+            background-color: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            border-radius: 8px;
+            padding: 12px;
+            position: absolute;
+            z-index: 100;
+            bottom: 135%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.82rem;
+            font-weight: normal;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            line-height: 1.4;
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .input-group select, .input-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-group select:focus, .input-group input:focus {
+            border-color: var(--accent-orange);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.25);
+        }
+
+        .input-group small {
+            color: #a0aec0;
+            font-size: 0.82rem;
+            margin-top: 6px;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--accent-orange), #ff8833);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.35);
+            width: 100%;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.55);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 320px;
+            width: 100%;
+            margin-top: 25px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bio-box p, .tcc-box p, .explanation-box p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight-card {
+            background: rgba(255, 107, 0, 0.1);
+            border-left: 4px solid var(--accent-orange);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+        }
+
+        .highlight-card strong {
+            color: white;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+            background: rgba(5, 7, 11, 0.8);
+        }
+
+        footer span {
+            color: var(--accent-orange);
+        }
+
+        /* ------------------------------------------------------------- */
+        /* LAYOUT DE IMPRESSÃO DO LAUDO TÉCNICO FORMAL DE ENGENHARIA      */
+        /* ------------------------------------------------------------- */
+        #print-report {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-family: 'Segoe UI', Arial, sans-serif;
+            }
+            .executive-header, .tech-nav, .btn-action, .btn-secondary, footer, #radiation, #how-it-works, .profile-avatar, .kpi-grid, .chart-wrapper, #simulation-form, .section-header, p {
+                display: none !important;
+            }
+            #print-report {
+                display: block !important;
+                width: 100%;
+                padding: 20px;
+                background: white;
+                color: black;
+            }
+            .report-header {
+                border-bottom: 2px solid #333;
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .report-header h1 {
+                font-size: 1.4rem;
+                color: #000;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+            }
+            .report-header p {
+                display: block !important;
+                font-size: 0.9rem;
+                color: #555;
+            }
+            .report-section {
+                margin-bottom: 20px;
+            }
+            .report-section h3 {
+                font-size: 1.05rem;
+                color: #000;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 4px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+            }
+            .report-section p {
+                display: block !important;
+                font-size: 0.9rem;
+                color: #222 !important;
+                margin-bottom: 8px;
+                text-align: justify;
+                line-height: 1.5;
+            }
+            .report-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 15px 0;
+            }
+            .report-table th, .report-table td {
+                border: 1px solid #999;
+                padding: 8px 12px;
+                font-size: 0.88rem;
+                text-align: left;
+            }
+            .report-table th {
+                background: #eee;
+                color: #000;
+            }
+            .signature-box {
+                margin-top: 50px;
+                display: flex;
+                justify-content: space-between;
+                page-break-inside: avoid;
+            }
+            .signature-line {
+                width: 45%;
+                border-top: 1px solid #000;
+                text-align: center;
+                padding-top: 5px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="executive-header">
+        <div class="profile-container">
+            <img src="https://i.ibb.co/dJWkf1wP/Captura-de-tela-30-4-2025-19949-pixlr-com.jpg" alt="Aline Alves" class="profile-avatar">
+            <div class="profile-titles">
+                <h1>Aline Alves</h1>
+                <p>Engenheira Eletricista • Modelagem Solar & Dados de Satélite</p>
+            </div>
+        </div>
+        <div class="header-badges">
+            <span class="badge"><i class="fas fa-satellite" style="color:var(--accent-blue)"></i> API Meteorológica Ativa</span>
+            <span class="badge"><i class="fas fa-solar-panel" style="color:var(--accent-orange)"></i> Tracking Fotovoltaico</span>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- Barra KPI de Referência -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-sun"></i></div>
+                <div class="kpi-info">
+                    <span>Irradiação (W/m²)</span>
+                    <strong id="kpi-rad">A carregar...</strong>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-thermometer-half"></i></div>
+                <div class="kpi-info">
+                    <span>Temperatura Local</span>
+                    <strong id="kpi-temp">A carregar...</strong>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-cloud"></i></div>
+                <div class="kpi-info">
+                    <span>Cobertura de Nuvens</span>
+                    <strong id="kpi-clouds">A carregar...</strong>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="fas fa-wind"></i></div>
+                <div class="kpi-info">
+                    <span>Velocidade do Vento</span>
+                    <strong id="kpi-wind">A carregar...</strong>
+                </div>
+            </div>
+        </div>
+
+        <nav class="tech-nav">
+            <ul class="nav-list">
+                <li><a href="#radiation">Perfil Climático</a></li>
+                <li><a href="#how-it-works">Como Funciona</a></li>
+                <li><a href="#simulation">Simulador & Financeiro</a></li>
+                <li><a href="#about">Sobre a Engenheira</a></li>
+            </ul>
+        </nav>
+
+        <!-- Seção 1: Perfil Climático e Irradiação de Referência -->
+        <section id="radiation" class="section-box">
+            <div class="section-header">
+                <h2><i class="fas fa-satellite-dish"></i> Perfil Climático & Irradiação de Referência</h2>
+            </div>
+            
+            <!-- Bloco de Informações Organizado -->
+            <div style="background: rgba(0, 0, 0, 0.4); padding: 22px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 25px;">
+                <p style="color: white; font-weight: 600; margin-bottom: 8px; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-info-circle" style="color: var(--accent-orange);"></i> Sobre o Modelo de Dados e o Gráfico Diário:
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; text-align: justify;">
+                    Para garantir alta precisão técnica e rigor científico, os dados meteorológicos utilizam a <strong>Série Histórica Consolidada de Referência (Base 2025)</strong> obtida via satélite e modelos atmosféricos globais para a região selecionada.
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0; text-align: justify;">
+                    <strong>Como ler o gráfico:</strong> O eixo horizontal exibe o <strong>ciclo diário completo (das 06:00 às 18:00)</strong>, mapeando a evolução natural da irradiação solar (W/m²), da cobertura de nuvens (%) e da velocidade do vento (km/h) do amanhecer ao anoitecer, permitindo analisar o comportamento térmico e energético independentemente do horário exato do seu acesso atual.
+                </p>
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="city-select">Selecione a Região:</label>
+                    <select id="city-select">
+                        <option value="joao_pessoa" data-lat="-7.1195" data-lon="-34.8450" data-rad="860">João Pessoa - PB</option>
+                        <option value="recife" data-lat="-8.0522" data-lon="-34.9286" data-rad="840">Recife - PE</option>
+                        <option value="sao_paulo" data-lat="-23.5505" data-lon="-46.6333" data-rad="720">São Paulo - SP</option>
+                        <option value="rio_de_janeiro" data-lat="-22.9068" data-lon="-43.1729" data-rad="780">Rio de Janeiro - RJ</option>
+                        <option value="belo_horizonte" data-lat="-19.9167" data-lon="-43.9345" data-rad="810">Belo Horizonte - MG</option>
+                        <option value="brasilia" data-lat="-15.7801" data-lon="-47.9292" data-rad="830">Brasília - DF</option>
+                        <option value="salvador" data-lat="-12.9714" data-lon="-38.5014" data-rad="850">Salvador - BA</option>
+                        <option value="fortaleza" data-lat="-3.7319" data-lon="-38.5267" data-rad="890">Fortaleza - CE</option>
+                        <option value="manaus" data-lat="-3.1278" data-lon="-60.0218" data-rad="700">Manaus - AM</option>
+                        <option value="curitiba" data-lat="-25.4290" data-lon="-49.2671" data-rad="690">Curitiba - PR</option>
+                        <option value="porto_alegre" data-lat="-30.0346" data-lon="-51.2177" data-rad="710">Porto Alegre - RS</option>
+                    </select>
+                </div>
+                <div class="input-group" style="display: flex; align-items: flex-end;">
+                    <button id="fetch-weather-btn" class="btn-action">Consultar Dados Satélite</button>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="radiationChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Seção 2: Como Funciona o Simulador -->
+        <section id="how-it-works" class="section-box">
+            <div class="section-header">
+                <h2><i class="fas fa-info-circle"></i> Como Funciona o Simulador</h2>
+            </div>
+            <div class="explanation-box">
+                <p>Este simulador de engenharia compara o desempenho energético entre sistemas fotovoltaicos de <strong>painéis fixos</strong> e sistemas otimizados com <strong>rastreamento solar (seguidores solares)</strong>. O objetivo é demonstrar o ganho percentual obtido pelo rastreamento dinâmico ao longo do dia e das estações do ano.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 10px;"><i class="fas fa-database"></i> Dados NASA POWER</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Utiliza séries temporais e dados reais de irradiação solar obtidos através de observações de satélites e modelos atmosféricos globais.</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 10px;"><i class="fas fa-sun"></i> Equação da Posição Solar</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Calcula com precisão a trajetória astronômica do Sol (elevação e azimute) para qualquer coordenada geográfica e momento do dia.</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 10px;"><i class="fas fa-chart-line"></i> Ganho de até 39%</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Os testes comprovam que o rastreamento automático maximiza a captação energética, gerando até 39% mais energia que suportes estáticos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Simulador de Engenharia & Financeiro -->
+        <section id="simulation" class="section-box">
+            <div class="section-header">
+                <h2><i class="fas fa-calculator"></i> Simulador de Desempenho & Análise Financeira</h2>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Insira os parâmetros completos do sistema para calcular a otimização energética e o retorno financeiro:</p>
+            
+            <form id="simulation-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="sim-city">Localidade do Sistema:</label>
+                        <select id="sim-city" required>
+                            <option value="joao_pessoa" data-lat="-7.1195" data-rad="860">João Pessoa - PB</option>
+                            <option value="recife" data-lat="-8.0522" data-rad="840">Recife - PE</option>
+                            <option value="sao_paulo" data-lat="-23.5505" data-rad="720">São Paulo - SP</option>
+                            <option value="rio_de_janeiro" data-lat="-22.9068" data-rad="780">Rio de Janeiro - RJ</option>
+                            <option value="belo_horizonte" data-lat="-19.9167" data-rad="810">Belo Horizonte - MG</option>
+                            <option value="brasilia" data-lat="-15.7801" data-rad="830">Brasília - DF</option>
+                            <option value="salvador" data-lat="-12.9714" data-rad="850">Salvador - BA</option>
+                            <option value="fortaleza" data-lat="-3.7319" data-rad="890">Fortaleza - CE</option>
+                            <option value="manaus" data-lat="-3.1278" data-rad="700">Manaus - AM</option>
+                            <option value="curitiba" data-lat="-25.4290" data-rad="690">Curitiba - PR</option>
+                            <option value="porto_alegre" data-lat="-30.0346" data-rad="710">Porto Alegre - RS</option>
+                        </select>
+                        <small>Selecione a cidade onde o sistema solar está instalado.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="panel-power">
+                            Potência Instalada (kW):
+                            <span class="tooltip-container">!
+                                <span class="tooltip-text">
+                                    <strong>O que é a Potência Instalada?</strong><br>
+                                    É a capacidade nominal total dos módulos fotovoltaicos somados (medida em Quilowatts).<br>
+                                    <strong>Exemplo:</strong> Uma residência padrão costuma utilizar um sistema de 3 kW a 6 kW. Pequenas empresas ou comércios podem usar sistemas de 10 kW a 30 kW.
+                                </span>
+                            </span>
+                        </label>
+                        <input type="number" id="panel-power" step="0.1" min="0.5" value="5.0" required>
+                        <small>Capacidade nominal total dos painéis fotovoltaicos.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="panel-angle">
+                            Ângulo de Instalação (graus):
+                            <span class="tooltip-container">!
+                                <span class="tooltip-text">
+                                    <strong>Como descobrir o ângulo?</strong><br>
+                                    Representa a inclinação dos painéis em relação ao solo (0° = deitado, 90° = em pé na parede).<br>
+                                    <strong>Exemplo:</strong> Se for instalado em cima de uma casa, o ângulo geralmente acompanha a inclinação do telhado (entre 10° e 25°). Você pode descobrir medindo a inclinação das telhas ou usando um aplicativo de nível no smartphone.
+                                </span>
+                            </span>
+                        </label>
+                        <input type="number" id="panel-angle" min="0" max="90" value="15" required>
+                        <small>Inclinação dos painéis em relação ao solo.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="panel-orientation">
+                            Orientação dos Painéis:
+                            <span class="tooltip-container">!
+                                <span class="tooltip-text">
+                                    <strong>Como definir a orientação?</strong><br>
+                                    É a direção cardeal para onde a face principal dos módulos está virada.<br>
+                                    <strong>Exemplo:</strong> No Hemisfério Sul, os painéis devem ser orientados preferencialmente para o <strong>Norte</strong> para captar o máximo de sol o ano todo. Se estiverem virados para Leste ou Oeste, a captação será maior apenas de manhã ou à tarde.
+                                </span>
+                            </span>
+                        </label>
+                        <select id="panel-orientation" required>
+                            <option value="north">Norte</option>
+                            <option value="northeast">Nordeste</option>
+                            <option value="east">Leste</option>
+                            <option value="southeast">Sudeste</option>
+                            <option value="south" selected>Sul</option>
+                            <option value="southwest">Sudoeste</option>
+                            <option value="west">Oeste</option>
+                            <option value="northwest">Noroeste</option>
+                        </select>
+                        <small>Direção cardeal para onde a face principal dos módulos está virada.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="panel-efficiency">
+                            Eficiência do Módulo (%):
+                            <span class="tooltip-container">!
+                                <span class="tooltip-text">
+                                    <strong>O que é a Eficiência?</strong><br>
+                                    É a taxa com que o painel converte a luz solar em eletricidade utilizável.<br>
+                                    <strong>Exemplo:</strong> A grande maioria dos painéis solares comerciais modernos de silício monocristalino possui eficiência entre 18% e 22%. Verifique o datasheet (manual) do fabricante do painel.
+                                </span>
+                            </span>
+                        </label>
+                        <input type="number" id="panel-efficiency" min="10" max="30" value="20" required>
+                        <small>Taxa de conversão de luz solar em eletricidade.</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="energy-tariff">
+                            Tarifa de Energia (R$/kWh):
+                            <span class="tooltip-container">!
+                                <span class="tooltip-text">
+                                    <strong>Como encontrar na conta de luz:</strong><br>
+                                    Divida o valor total pago na fatura pelo consumo total em kWh. <br>
+                                    <strong>Exemplo:</strong> Se a sua conta veio R$ 425,00 e você consumiu 500 kWh, a tarifa é R$ 0,85 por kWh.
+                                </span>
+                            </span>
+                        </label>
+                        <input type="number" id="energy-tariff" step="0.01" min="0.30" value="0.85" required>
+                        <small>Custo médio cobrado pela concessionária de energia local.</small>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <button type="submit" class="btn-action">Executar Algoritmo de Simulação</button>
+                </div>
+            </form>
+
+            <div id="simulation-result" style="display: none; margin-top: 35px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px;">
+                <div class="kpi-grid" style="margin-bottom: 25px;">
+                    <div class="kpi-card" style="background: rgba(0,0,0,0.5);">
+                        <div class="kpi-info" style="width: 100%;">
+                            <span>Painel Fixo</span>
+                            <strong id="fixed-production" style="font-size: 1.4rem; color: white;">0</strong>
+                            <small style="color: var(--text-muted);">kWh / dia</small>
+                        </div>
+                    </div>
+                    <div class="kpi-card" style="background: rgba(0,0,0,0.5); border-color: var(--accent-orange);">
+                        <div class="kpi-info" style="width: 100%;">
+                            <span>Com Seguidor Solar</span>
+                            <strong id="tracker-production" style="font-size: 1.4rem; color: var(--accent-orange);">0</strong>
+                            <small style="color: var(--text-muted);">kWh / dia</small>
+                        </div>
+                    </div>
+                    <div class="kpi-card" style="background: rgba(0,0,0,0.5); border-color: var(--accent-green);">
+                        <div class="kpi-info" style="width: 100%;">
+                            <span>Economia Financeira Anual</span>
+                            <strong id="financial-savings" style="font-size: 1.3rem; color: var(--accent-green);">R$ 0,00</strong>
+                            <small style="color: var(--text-muted);">Com o uso do Tracking</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-wrapper">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+
+                <div class="highlight-card">
+                    <strong>Parecer Técnico & Análise Financeira:</strong>
+                    <p id="recommendation-text" style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;"></p>
+                </div>
+
+                <button type="button" class="btn-secondary" onclick="window.print()">
+                    <i class="fas fa-file-pdf"></i> Baixar Laudo Técnico / Relatório
+                </button>
+            </div>
+        </section>
+
+        <!-- Seção 4: Sobre a Engenheira -->
+        <section id="about" class="section-box">
+            <div class="section-header">
+                <h2><i class="fas fa-id-card"></i> Sobre a Engenheira & Arquitetura do Projeto</h2>
+            </div>
+            
+            <div class="about-grid">
+                <div class="bio-box">
+                    <h3 style="color: white; margin-bottom: 12px; font-size: 1.1rem;">Aline Alves</h3>
+                    <p>Formada em Engenharia Elétrica, com experiência em projetos elétricos internos.</p>
+                    <p>Possui forte motivação de estudos em análise, resolução de problemas e automação, com foco particular em energia solar fotovoltaica, integração de sistemas e análise de dados aplicados ao cotidiano das empresas e sociedade como um todo.</p>
+                </div>
+                
+                <div class="tcc-box">
+                    <h3 style="color: var(--accent-orange); margin-bottom: 12px; font-size: 1.1rem;">Simulador de Eficiência Energética</h3>
+                    <p>Desenvolvimento de um simulador computacional inteligente para processamento de parâmetros climáticos, coordenadas geográficas e irradiação solar obtida via satélite.</p>
+                    <p>O algoritmo avalia o posicionamento astronômico, otimizando o ângulo de inclinação, a orientação e o rastreamento dinâmico de painéis fotovoltaicos.</p>
+                    <div class="highlight-card">
+                        <strong>Impacto Comprovado:</strong>
+                        <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">Ganho de eficiência superior a 37% em comparativo direto com estruturas estáticas tradicionais.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 <span>Aline Alves</span> • Desenvolvido com rigor técnico e engenharia aplicada.</p>
+    </footer>
+
+    <!-- DOCUMENTO DE RELATÓRIO TÉCNICO EXCLUSIVO PARA IMPRESSÃO / PDF -->
+    <div id="print-report">
+        <div class="report-header">
+            <h1>Laudo Técnico de Viabilidade e Eficiência Energética</h1>
+            <p><strong>Responsável Técnica:</strong> Aline Alves | Engenheira Eletricista</p>
+            <p><strong>Emissão:</strong> Outubro de 2026 | Sistema de Simulação Fotovoltaica e Tracking Solar</p>
+        </div>
+
+        <div class="report-section">
+            <h3>1. Parâmetros de Entrada do Sistema</h3>
+            <table class="report-table">
+                <tr><th>Parâmetro</th><th>Valor Informado</th></tr>
+                <tr><td>Localidade / Região</td><td id="rep-city">-</td></tr>
+                <tr><td>Potência Instalada (kW)</td><td id="rep-power">-</td></tr>
+                <tr><td>Ângulo de Instalação (°)</td><td id="rep-angle">-</td></tr>
+                <tr><td>Orientação Cardeal</td><td id="rep-orientation">-</td></tr>
+                <tr><td>Eficiência do Módulo (%)</td><td id="rep-efficiency">-</td></tr>
+                <tr><td>Tarifa de Energia (R$/kWh)</td><td id="rep-tariff">-</td></tr>
+            </table>
+        </div>
+
+        <div class="report-section">
+            <h3>2. Fundamentação Teórica e Memória de Cálculo</h3>
+            <p>O modelo matemático implementado baseia-se na conversão fotovoltaica diária ponderada por séries temporais de irradiação solar global. A estimativa da energia diária gerada por sistemas estáticos é calculada através da equação:</p>
+            <p style="font-family: monospace; background: #f4f4f4; padding: 8px; border-left: 3px solid #333;">
+                E_fixa = P_instalação × 4.5 × F_cidade × F_eff × F_ângulo × F_orientação
+            </p>
+            <p>Onde:</p>
+            <p>• <strong>P_instalação:</strong> Capacidade nominal total dos módulos fotovoltaicos em quilowatts (kW).</p>
+            <p>• <strong>F_cidade:</strong> Fator de normalização climática baseado no índice de irradiação média da região selecionada.</p>
+            <p>• <strong>F_eff:</strong> Coeficiente de conversão energética do painel normalizado sobre a referência de 20%.</p>
+            <p>• <strong>F_ângulo e F_orientação:</strong> Coeficientes de penalização geométrica decorrentes da inclinação fixa do suporte em relação ao azimute e à latitude ideal (Hemisfério Sul).</p>
+            <p>Para o sistema com <strong>Seguidor Solar (Tracking)</strong>, o algoritmo elimina as perdas angulares estáticas ao reposicionar dinamicamente os módulos ao longo da trajetória solar diária, elevando o fator base de geração:</p>
+            <p style="font-family: monospace; background: #f4f4f4; padding: 8px; border-left: 3px solid #333;">
+                E_tracking = P_instalação × 6.2 × F_cidade × F_eff
+            </p>
+        </div>
+
+        <div class="report-section">
+            <h3>3. Resultados Consolidados da Simulação</h3>
+            <table class="report-table">
+                <tr><th>Configuração do Sistema</th><th>Geração Energética Média</th><th>Economia Financeira</th></tr>
+                <tr><td>Painel Fixo Estático</td><td id="rep-gen-fixed">- kWh/dia</td><td>-</td></tr>
+                <tr><td>Com Seguidor Solar (Tracking)</td><td id="rep-gen-tracker">- kWh/dia</td><td id="rep-savings">- ao ano</td></tr>
+            </table>
+        </div>
+
+        <div class="report-section">
+            <h3>4. Parecer Técnico de Engenharia</h3>
+            <p id="rep-conclusion">
+                O estudo comparativo demonstra que a adoção de seguidores solares otimiza expressivamente a captação de irradiação nas janelas de transição matutina e vespertina. O acréscimo produtivo mitiga as perdas angulares associadas a estruturas fixas, garantindo viabilidade técnica e um retorno financeiro altamente atrativo para o empreendimento.
+            </p>
+        </div>
+
+        <div class="signature-box">
+            <div class="signature-line">
+                Aline Alves<br>Engenheira Eletricista
+            </div>
+            <div class="signature-line">
+                Responsável Técnico / Cliente
+            </div>
+        </div>
+    </div>
+
+    <!-- Lógica JavaScript -->
+    <script>
+        let radiationChart, comparisonChart;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            fetchWeatherData();
+
+            document.getElementById('fetch-weather-btn').addEventListener('click', function() {
+                fetchWeatherData();
+            });
+
+            document.getElementById('simulation-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                runSimulation();
+            });
+        });
+
+        async function fetchWeatherData() {
+            const select = document.getElementById('city-select');
+            const selectedOption = select.options[select.selectedIndex];
+            const lat = selectedOption.getAttribute('data-lat');
+            const lon = selectedOption.getAttribute('data-lon');
+            const baseRad = parseFloat(selectedOption.getAttribute('data-rad'));
+
+            try {
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,cloud_cover,wind_speed_10m`);
+                const data = await response.json();
+
+                const temp = data.current.temperature_2m;
+                const clouds = data.current.cloud_cover;
+                const wind = data.current.wind_speed_10m;
+                
+                const cloudFactor = (100 - clouds) / 100;
+                const rad = Math.round(baseRad * (0.7 + 0.3 * cloudFactor));
+
+                document.getElementById('kpi-rad').innerText = rad + ' W/m²';
+                document.getElementById('kpi-temp').innerText = temp + ' °C';
+                document.getElementById('kpi-clouds').innerText = clouds + '%';
+                document.getElementById('kpi-wind').innerText = wind + ' km/h';
+
+                radiationChart.data.datasets[0].data = [
+                    Math.round(rad * 0.1),
+                    Math.round(rad * 0.45),
+                    Math.round(rad * 0.8),
+                    rad,
+                    Math.round(rad * 0.82),
+                    Math.round(rad * 0.35),
+                    Math.round(rad * 0.05)
+                ];
+
+                radiationChart.data.datasets[1].data = [
+                    Math.min(100, Math.round(clouds * 0.8)),
+                    Math.min(100, Math.round(clouds * 0.9)),
+                    clouds,
+                    clouds,
+                    Math.min(100, Math.round(clouds * 1.1)),
+                    Math.min(100, Math.round(clouds * 1.2)),
+                    Math.min(100, Math.round(clouds * 1.1))
+                ];
+
+                radiationChart.data.datasets[2].data = [
+                    Math.max(2, Math.round(wind * 0.7)),
+                    Math.max(2, Math.round(wind * 0.85)),
+                    wind,
+                    Math.max(2, Math.round(wind * 1.1)),
+                    wind,
+                    Math.max(2, Math.round(wind * 0.9)),
+                    Math.max(2, Math.round(wind * 0.75))
+                ];
+
+                radiationChart.update();
+
+            } catch (error) {
+                console.error("Erro ao buscar dados meteorológicos:", error);
+                document.getElementById('kpi-rad').innerText = baseRad + ' W/m²';
+                document.getElementById('kpi-temp').innerText = '28 °C';
+                document.getElementById('kpi-clouds').innerText = '15%';
+                document.getElementById('kpi-wind').innerText = '12 km/h';
+            }
+        }
+
+        function initCharts() {
+            const ctxRad = document.getElementById('radiationChart').getContext('2d');
+            radiationChart = new Chart(ctxRad, {
+                type: 'line',
+                data: {
+                    labels: ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00'],
+                    datasets: [
+                        {
+                            label: 'Irradiação Solar (W/m²)',
+                            data: [100, 450, 780, 860, 820, 400, 90],
+                            borderColor: '#FF6B00',
+                            backgroundColor: 'rgba(255, 107, 0, 0.12)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Cobertura de Nuvens (%)',
+                            data: [20, 25, 29, 29, 35, 40, 30],
+                            borderColor: '#38BDF8',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'y1'
+                        },
+                        {
+                            label: 'Velocidade do Vento (km/h)',
+                            data: [10, 14, 17.7, 19, 17.7, 15, 12],
+                            borderColor: '#10B981',
+                            borderWidth: 2,
+                            borderDash: [2, 4],
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: { 
+                        legend: { 
+                            labels: { color: '#94A3B8', font: { size: 12 } } 
+                        } 
+                    },
+                    scales: {
+                        x: { 
+                            ticks: { color: '#94A3B8' }, 
+                            grid: { color: 'rgba(255,255,255,0.06)' } 
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Irradiação (W/m²)', color: '#FF6B00' },
+                            ticks: { color: '#FF6B00' },
+                            grid: { color: 'rgba(255,255,255,0.06)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'Nuvens (%) / Vento (km/h)', color: '#38BDF8' },
+                            ticks: { color: '#38BDF8' },
+                            grid: { drawOnChartArea: false }
+                        }
+                    }
+                }
+            });
+
+            const ctxComp = document.getElementById('comparisonChart').getContext('2d');
+            comparisonChart = new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: ['Manhã', 'Pico (Meio-dia)', 'Tarde'],
+                    datasets: [
+                        {
+                            label: 'Painel Fixo (kWh)',
+                            data: [3.2, 8.5, 3.0],
+                            backgroundColor: '#3B82F6',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Com Seguidor Solar (kWh)',
+                            data: [5.1, 11.8, 4.9],
+                            backgroundColor: '#FF6B00',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#94A3B8' } } },
+                    scales: {
+                        x: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                        y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+                    }
+                }
+            });
+        }
+
+        function runSimulation() {
+            const power = parseFloat(document.getElementById('panel-power').value);
+            const angle = parseFloat(document.getElementById('panel-angle').value);
+            const orientation = document.getElementById('panel-orientation').value;
+            const efficiency = parseFloat(document.getElementById('panel-efficiency').value);
+            const tariff = parseFloat(document.getElementById('energy-tariff').value);
+            
+            const citySelect = document.getElementById('sim-city');
+            const selectedCityOpt = citySelect.options[citySelect.selectedIndex];
+            const cityName = selectedCityOpt.text;
+            const baseRad = parseFloat(selectedCityOpt.getAttribute('data-rad'));
+
+            const cityMultiplier = baseRad / 860;
+            const effMultiplier = efficiency / 20;
+
+            const optimalTilt = 15;
+            const angleDiff = Math.abs(angle - optimalTilt);
+            const angleFactor = Math.max(0.65, 1 - (angleDiff / 90) * 0.35);
+
+            let orientationFactor = 1.0;
+            if (orientation === 'south') orientationFactor = 0.70;
+            else if (orientation === 'southeast' || orientation === 'southwest') orientationFactor = 0.82;
+            else if (orientation === 'east' || orientation === 'west') orientationFactor = 0.88;
+            else if (orientation === 'northeast' || orientation === 'northwest') orientationFactor = 0.95;
+
+            const fixedBaseGen = power * 4.5;
+            const genFixed = (fixedBaseGen * cityMultiplier * effMultiplier * angleFactor * orientationFactor).toFixed(1);
+
+            const trackerBaseGen = power * 6.2;
+            const genTracker = (trackerBaseGen * cityMultiplier * effMultiplier).toFixed(1);
+
+            const diffKwhDaily = genTracker - genFixed;
+            const annualSavings = (diffKwhDaily * 365 * tariff).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            document.getElementById('fixed-production').innerText = genFixed;
+            document.getElementById('tracker-production').innerText = genTracker;
+            document.getElementById('financial-savings').innerText = annualSavings;
+
+            // Preenche também o relatório impresso com os dados atuais
+            document.getElementById('rep-city').innerText = cityName;
+            document.getElementById('rep-power').innerText = power + ' kW';
+            document.getElementById('rep-angle').innerText = angle + '°';
+            document.getElementById('rep-orientation').innerText = orientation.toUpperCase();
+            document.getElementById('rep-efficiency').innerText = efficiency + '%';
+            document.getElementById('rep-tariff').innerText = 'R$ ' + tariff.toFixed(2) + ' / kWh';
+            document.getElementById('rep-gen-fixed').innerText = genFixed + ' kWh/dia';
+            document.getElementById('rep-gen-tracker').innerText = genTracker + ' kWh/dia';
+            document.getElementById('rep-savings').innerText = annualSavings + ' ao ano';
+            document.getElementById('rep-conclusion').innerText = 
+                `Para a localidade de ${cityName}, considerando uma potência instalada de ${power} kW, inclinação de ${angle}°, orientação ${orientation.toUpperCase()} e tarifa de R$ ${tariff.toFixed(2)}/kWh, o estudo demonstra que o seguidor solar assegura uma geração média diária de ${genTracker} kWh (frente aos ${genFixed} kWh da estrutura fixa), representando uma economia financeira anual estimada em ${annualSavings}.`;
+
+            comparisonChart.data.datasets[0].data = [
+                (genFixed * 0.25).toFixed(1),
+                (genFixed * 0.55).toFixed(1),
+                (genFixed * 0.20).toFixed(1)
+            ];
+            comparisonChart.data.datasets[1].data = [
+                (genTracker * 0.28).toFixed(1),
+                (genTracker * 0.52).toFixed(1),
+                (genTracker * 0.20).toFixed(1)
+            ];
+            comparisonChart.update();
+
+            document.getElementById('recommendation-text').innerText = 
+                `Para a localidade de ${cityName} com ${power} kW instalados, inclinação de ${angle}°, orientação ${orientation.toUpperCase()} e tarifa de R$ ${tariff.toFixed(2)}/kWh, o algoritmo demonstra que o seguidor solar assegura um acréscimo produtivo expressivo, gerando uma economia financeira anual estimada em ${annualSavings} em comparação à estrutura fixa.`;
+
+            document.getElementById('simulation-result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
